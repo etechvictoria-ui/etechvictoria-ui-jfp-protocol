@@ -1,0 +1,50 @@
+=== JFP_DOCUMENT ===
+F:VERSION:13.0.0;
+F:TYPE:BUILD_SPEC;
+F:AUTHOR:JFP Team;
+F:STATUS:EXAMPLE;
+
+=== META ===
+F:PROJECT_NAME:minimal_python_app;
+F:PRIMARY_LANGUAGE:python;
+F:PURPOSE:create_basic_app_structure;
+
+=== BUILD_GRAPH ===
+
+[TASK_01]
+F:ACTION:fs.mkdir;
+F:OUTPUT:app;
+
+[TASK_02]
+F:ACTION:fs.write_file;
+F:DEPENDENCY:TASK_01;
+F:OUTPUT:app/main.py;
+
+[TASK_03]
+F:ACTION:fs.write_file;
+F:DEPENDENCY:TASK_01;
+F:OUTPUT:app/README.md;
+
+=== OUTPUT_MAP ===
+
+[FILE_01]
+F:PATH:app;
+
+[FILE_02]
+F:PATH:app/main.py;
+
+[FILE_03]
+F:PATH:app/README.md;
+
+=== CONSTRAINTS ===
+F:RULE:do_not_create_unrequested_files;
+F:RULE:do_not_modify_files_outside_output_map;
+F:RULE:halt_on_constraint_conflict;
+
+=== SIGNAL_ORANGE ===
+F:TRIGGER:output_not_mapped;
+F:TRIGGER:constraint_conflict;
+F:TRIGGER:missing_dependency;
+F:ACTION:halt_and_request_human_review;
+
+=== END_JFP ===
