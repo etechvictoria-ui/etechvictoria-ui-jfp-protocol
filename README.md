@@ -82,6 +82,8 @@ JFP is not only a document format. The repository also documents existing protot
 These case studies are included as architectural references and demonstrations of structured AI-assisted systems.
 They are not provided as real emergency, tactical, medical, police, military, or autonomous decision systems.
 
+The case studies are description-only architectural references. Full source code and private implementation details are not included in this repository.
+
 See all case studies: [`case-studies/`](case-studies/)
 
 ## Repository structure
