@@ -1,0 +1,42 @@
+=== JFP_DOCUMENT ===
+F:VERSION:13.0.0;
+F:TYPE:BUILD_SPEC;
+F:AUTHOR:JFP Team;
+F:STATUS:TEMPLATE;
+
+=== META ===
+F:PROJECT_NAME:replace_with_project_name;
+F:PRIMARY_LANGUAGE:replace_with_language;
+F:PURPOSE:replace_with_short_project_purpose;
+
+=== BUILD_GRAPH ===
+
+[TASK_01]
+F:ACTION:replace_with_action;
+F:OUTPUT:replace_with_output_path;
+
+[TASK_02]
+F:ACTION:replace_with_action;
+F:DEPENDENCY:TASK_01;
+F:OUTPUT:replace_with_output_path;
+
+=== OUTPUT_MAP ===
+
+[FILE_01]
+F:PATH:replace_with_output_path;
+
+[FILE_02]
+F:PATH:replace_with_output_path;
+
+=== CONSTRAINTS ===
+F:RULE:do_not_create_unrequested_files;
+F:RULE:do_not_modify_files_outside_output_map;
+F:RULE:halt_on_constraint_conflict;
+
+=== SIGNAL_ORANGE ===
+F:TRIGGER:output_not_mapped;
+F:TRIGGER:constraint_conflict;
+F:TRIGGER:missing_dependency;
+F:ACTION:halt_and_request_human_review;
+
+=== END_JFP ===
