@@ -1,0 +1,16 @@
+{
+  "valid": true,
+  "issue_count": 0,
+  "sections": [
+    "JFP_DOCUMENT",
+    "META",
+    "USER_REQUEST",
+    "BUILD_GRAPH",
+    "OUTPUT_MAP",
+    "CONSTRAINTS",
+    "SIGNAL_ORANGE",
+    "END_JFP"
+  ],
+  "task_count": 3,
+  "fact_count": 27
+}
