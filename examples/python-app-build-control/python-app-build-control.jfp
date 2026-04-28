@@ -1,0 +1,68 @@
+=== JFP_DOCUMENT ===
+F:VERSION:13.0.0;
+F:TYPE:CODE_GENERATION_SPEC;
+F:AUTHOR:JFP Team;
+F:STATUS:EXAMPLE;
+
+=== META ===
+F:PROJECT_NAME:python_app_build_control;
+F:PRIMARY_LANGUAGE:python;
+F:PURPOSE:control_ai_assisted_single_file_cli_app_build;
+
+=== USER_REQUEST ===
+F:REQUEST:create_minimal_python_cli_app_that_prints_greeting_message;
+F:REQUIREMENT:use_only_one_source_file;
+F:REQUIREMENT:no_external_dependencies;
+F:REQUIREMENT:no_configuration_files;
+F:REQUIREMENT:do_not_modify_existing_project_files;
+
+=== BUILD_GRAPH ===
+
+[TASK_01]
+F:ACTION:define_application_scope;
+F:OUTPUT:examples/python-app-build-control/generated/hello_cli.py;
+
+[TASK_02]
+F:ACTION:create_single_file_python_cli_app;
+F:DEPENDENCY:TASK_01;
+F:OUTPUT:examples/python-app-build-control/generated/hello_cli.py;
+
+[TASK_03]
+F:ACTION:verify_no_external_dependencies;
+F:DEPENDENCY:TASK_02;
+F:OUTPUT:execution-report.md;
+
+[TASK_04]
+F:ACTION:verify_no_unmapped_files_created_or_modified;
+F:DEPENDENCY:TASK_02;
+F:OUTPUT:execution-report.md;
+
+=== OUTPUT_MAP ===
+
+[FILE_01]
+F:PATH:examples/python-app-build-control/generated/hello_cli.py;
+F:MODE:create_new_file_only;
+
+[FILE_02]
+F:PATH:examples/python-app-build-control/execution-report.md;
+F:MODE:create_report_only;
+
+=== CONSTRAINTS ===
+F:RULE:do_not_create_unrequested_files;
+F:RULE:do_not_modify_existing_project_files;
+F:RULE:do_not_add_external_dependencies;
+F:RULE:do_not_create_configuration_files;
+F:RULE:do_not_create_package_structure;
+F:RULE:single_source_file_only;
+F:RULE:halt_on_constraint_conflict;
+
+=== SIGNAL_ORANGE ===
+F:TRIGGER:dependency_requested_or_added;
+F:TRIGGER:configuration_file_requested_or_added;
+F:TRIGGER:additional_source_file_requested_or_added;
+F:TRIGGER:existing_project_file_modification_detected;
+F:TRIGGER:output_not_mapped;
+F:TRIGGER:scope_expansion_detected;
+F:ACTION:halt_and_request_human_review;
+
+=== END_JFP ===
