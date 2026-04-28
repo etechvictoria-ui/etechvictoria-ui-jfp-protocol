@@ -22,6 +22,23 @@ AI coding tools can generate code quickly, but speed without control creates ris
 
 JFP introduces a protocol layer between human intention and AI execution.
 
+## Who is this for
+
+JFP is intended for developers, teams, and organizations that use AI-assisted tools but need stronger control over scope, outputs, and review.
+
+It may be useful for:
+
+- software teams using AI coding assistants
+- maintainers who want safer pull requests
+- teams using GitHub Actions or CI workflows
+- organizations exploring AI governance for development
+- developers building repeatable specification-first workflows
+- consultants or integrators designing controlled AI delivery processes
+
+JFP is not a replacement for developers, code review, testing, or security review. It is a control layer that helps make AI-assisted work explicit, bounded, reviewable, and auditable.
+
+See practical examples in [`docs/use-cases.md`](docs/use-cases.md).
+
 ## Core idea
 
 A prompt is not a protocol.
@@ -144,6 +161,12 @@ JFP version: **v13.0.0**
 
 This repository is an early open-source companion for the JFP ecosystem.
 The current tools are prototypes intended for education, experimentation, and structured AI-assisted workflow design.
+
+## Commercial support
+
+JFP is open source under the MIT License.
+
+For larger projects, teams may contact the maintainer to discuss professional support, custom workflow design, CI integration, training, or sponsored development.
 
 ## Publications
 
