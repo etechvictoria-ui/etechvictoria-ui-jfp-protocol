@@ -1,4 +1,4 @@
-# JFP - JARO Flash Protocol
+# JFP — JARO Flash Protocol
 
 **A specification-first protocol for controlled AI-assisted development.**
 
@@ -44,15 +44,26 @@ JFP replaces vague instruction with:
 7. Verify before you deliver  
 8. Report before you ask for trust  
 
+## Quick Start
+
+➡️ See: `docs/quick-start.md`
+
+Run locally:
+
+```bash
+python tools/parser.py specs/minimal-build-spec.jfp
+python tools/validator.py specs/minimal-build-spec.jfp
+```
+
 ## Status
 
 JFP version: **v13.0.0**
 
 ## Book
 
-**JFP - How to Design, Control, and Deliver Systems in the Age of Artificial Intelligence**
+**JFP — How to Design, Control, and Deliver Systems in the Age of Artificial Intelligence**
 
 ## Author
 
 Jaroslaw Kuchta  
-Creator of JFP - JARO Flash Protocol
+Creator of JFP — JARO Flash Protocol
