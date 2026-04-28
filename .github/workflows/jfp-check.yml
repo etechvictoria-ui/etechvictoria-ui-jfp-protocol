@@ -1,0 +1,32 @@
+name: JFP Check
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "**/*.jfp"
+      - "tools/**"
+      - "examples/**"
+
+jobs:
+  jfp-check:
+    name: Validate JFP specifications
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Inspect PR control specification
+        run: python tools/jfp_cli.py inspect examples/pr-control/pr-control.jfp
+
+      - name: Validate PR control specification
+        run: python tools/jfp_cli.py validate examples/pr-control/pr-control.jfp
+
+      - name: Parse PR control specification
+        run: python tools/jfp_cli.py parse examples/pr-control/pr-control.jfp
