@@ -117,6 +117,7 @@ JFP is not only a document format. The repository also documents existing protot
 |---|---|
 | [`VIKI Vision UEACT`](case-studies/viki-vision-ueact/) | Visual decision-support workflow using structured AI perception output, uncertainty, correction layers, and human review |
 | [`VIKI VIPER Command Center`](case-studies/viki-viper-command-center/) | Operational monitoring, anomaly analysis, proof tracking, blackbox logging, degraded states, and operator-controlled safety actions |
+| [`VIKI VENOM EVO Application Tests`](case-studies/viki-venom-evo-application-tests/) | Application testing, structured review, validation notes, and controlled reporting |
 
 These case studies are included as architectural references and demonstrations of structured AI-assisted systems.
 They are not provided as real emergency, tactical, medical, police, military, or autonomous decision systems.
@@ -128,12 +129,13 @@ See all case studies: [`case-studies/`](case-studies/)
 ## Repository structure
 
 ```text
+assets/        Visual references, wallpapers, and media assets
 case-studies/  Existing prototype systems and application patterns
 docs/          Quick start and tool documentation
+examples/      Example workflows and future demos
 specs/         Example JFP specification files
 templates/     Reusable JFP templates
 tools/         Parser, validator, and CLI prototypes
-examples/      Example workflows and future demos
 ```
 
 ## Status
@@ -143,9 +145,13 @@ JFP version: **v13.0.0**
 This repository is an early open-source companion for the JFP ecosystem.
 The current tools are prototypes intended for education, experimentation, and structured AI-assisted workflow design.
 
-## Book
+## Publications
 
-**JFP — How to Design, Control, and Deliver Systems in the Age of Artificial Intelligence**
+JFP is supported by related books and publications by Jaroslaw Kuchta that explore the protocol philosophy, design mindset, and practical use cases.
+
+- [JFP — How to Design, Control, and Deliver Systems in the Age of Artificial Intelligence](https://www.amazon.co.uk/dp/B0GYS9GCRS)
+- [JFP Paradox](https://www.amazon.co.uk/dp/B0DCGG5R1F)
+- [JFP 4: Beginners](https://www.amazon.co.uk/dp/B0GHLR955L)
 
 ## Author
 
