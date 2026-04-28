@@ -1,0 +1,17 @@
+{
+  "valid": true,
+  "issue_count": 0,
+  "sections": [
+    "JFP_DOCUMENT",
+    "META",
+    "PR_REQUEST",
+    "BUILD_GRAPH",
+    "OUTPUT_MAP",
+    "CONSTRAINTS",
+    "SIGNAL_ORANGE",
+    "REVIEW_DECISION",
+    "END_JFP"
+  ],
+  "task_count": 5,
+  "fact_count": 41
+}
