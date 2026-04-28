@@ -1,0 +1,60 @@
+=== JFP_DOCUMENT ===
+F:VERSION:13.0.0;
+F:TYPE:DOCUMENTATION_CHANGE_SPEC;
+F:AUTHOR:JFP Team;
+F:STATUS:EXAMPLE;
+
+=== META ===
+F:PROJECT_NAME:readme_update_control;
+F:PRIMARY_LANGUAGE:markdown;
+F:PURPOSE:control_ai_assisted_readme_update;
+
+=== USER_REQUEST ===
+F:REQUEST:update_readme_with_short_getting_started_section;
+F:PROTECT:project_description;
+F:PROTECT:author_section;
+F:PROTECT:existing_tool_table;
+
+=== BUILD_GRAPH ===
+
+[TASK_01]
+F:ACTION:inspect_existing_readme;
+F:OUTPUT:README.md;
+
+[TASK_02]
+F:ACTION:add_getting_started_section;
+F:DEPENDENCY:TASK_01;
+F:OUTPUT:README.md;
+
+[TASK_03]
+F:ACTION:verify_protected_sections_unchanged;
+F:DEPENDENCY:TASK_02;
+F:OUTPUT:execution-report.md;
+
+=== OUTPUT_MAP ===
+
+[FILE_01]
+F:PATH:README.md;
+F:MODE:modify_existing_file_only;
+
+[FILE_02]
+F:PATH:execution-report.md;
+F:MODE:create_report_only;
+
+=== CONSTRAINTS ===
+F:RULE:do_not_create_unrequested_files;
+F:RULE:do_not_modify_files_outside_output_map;
+F:RULE:do_not_rewrite_project_description;
+F:RULE:do_not_change_author_section;
+F:RULE:do_not_change_existing_tool_table;
+F:RULE:halt_on_constraint_conflict;
+
+=== SIGNAL_ORANGE ===
+F:TRIGGER:protected_section_change_required;
+F:TRIGGER:output_not_mapped;
+F:TRIGGER:scope_expansion_detected;
+F:TRIGGER:missing_dependency;
+F:TRIGGER:unclear_requested_section_location;
+F:ACTION:halt_and_request_human_review;
+
+=== END_JFP ===
