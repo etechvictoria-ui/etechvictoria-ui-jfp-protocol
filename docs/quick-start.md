@@ -18,7 +18,45 @@ git clone https://github.com/etechvictoria-ui/etechvictoria-ui-jfp-protocol.git
 cd etechvictoria-ui-jfp-protocol
 ```
 
-## Parse a JFP file
+## Use the JFP CLI
+
+The CLI is the recommended starting point for developers.
+
+It provides one command-line entrypoint for inspecting, parsing, and validating JFP files.
+
+### Inspect a JFP file
+
+```bash
+python tools/jfp_cli.py inspect specs/minimal-build-spec.jfp
+```
+
+Use `inspect` when you want a quick overview of a JFP document.
+
+It shows:
+
+- whether the spec is valid
+- issue count
+- detected sections
+- task count
+- fact count
+
+### Parse a JFP file
+
+```bash
+python tools/jfp_cli.py parse specs/minimal-build-spec.jfp
+```
+
+Use `parse` when you want the full structured JSON representation of a `.jfp` document.
+
+### Validate a JFP file
+
+```bash
+python tools/jfp_cli.py validate specs/minimal-build-spec.jfp
+```
+
+Use `validate` when you want to check a JFP document through the L1-L5 validation layers.
+
+## Parse a JFP file directly
 
 ```bash
 python tools/parser.py specs/minimal-build-spec.jfp
@@ -30,7 +68,7 @@ The parser converts a `.jfp` document into structured JSON containing:
 - blocks
 - facts
 
-## Validate a JFP file
+## Validate a JFP file directly
 
 ```bash
 python tools/validator.py specs/minimal-build-spec.jfp
@@ -118,16 +156,18 @@ When a stop condition is triggered, execution should halt and request human revi
 ## Current workflow
 
 1. Write a `.jfp` specification.
-2. Parse it.
-3. Validate it.
-4. Review validation results.
-5. Only then allow execution or agent-assisted implementation.
+2. Inspect it with the CLI.
+3. Parse it if you need the full JSON structure.
+4. Validate it through L1-L5.
+5. Review validation results.
+6. Only then allow execution or agent-assisted implementation.
 
 ## Example
 
 ```bash
-python tools/parser.py specs/minimal-build-spec.jfp
-python tools/validator.py specs/minimal-build-spec.jfp
+python tools/jfp_cli.py inspect specs/minimal-build-spec.jfp
+python tools/jfp_cli.py parse specs/minimal-build-spec.jfp
+python tools/jfp_cli.py validate specs/minimal-build-spec.jfp
 ```
 
 ## Expected result
