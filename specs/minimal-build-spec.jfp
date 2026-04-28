@@ -1,1 +1,38 @@
+=== JFP_DOCUMENT ===
+F:VERSION:13.0.0;
+F:TYPE:BUILD_SPEC;
+F:AUTHOR:user;
+F:STATUS:DRAFT;
 
+=== META ===
+F:PROJECT_NAME:demo_app;
+F:PRIMARY_LANGUAGE:python;
+
+=== BUILD_GRAPH ===
+
+[TASK_01]
+F:ACTION:fs.mkdir;
+F:OUTPUT:app;
+
+[TASK_02]
+F:ACTION:fs.write_file;
+F:DEPENDENCY:TASK_01;
+F:OUTPUT:app/main.py;
+
+=== OUTPUT_MAP ===
+
+[FILE_01]
+F:PATH:app;
+
+[FILE_02]
+F:PATH:app/main.py;
+
+=== CONSTRAINTS ===
+F:RULE:do_not_create_unrequested_files;
+
+=== SIGNAL_ORANGE ===
+F:TRIGGER:output_not_mapped;
+F:TRIGGER:constraint_conflict;
+F:ACTION:halt_and_request_human_review;
+
+=== END_JFP ===
