@@ -1,0 +1,84 @@
+=== JFP_DOCUMENT ===
+F:VERSION:13.0.0;
+F:TYPE:PULL_REQUEST_CONTROL_SPEC;
+F:AUTHOR:JFP Team;
+F:STATUS:EXAMPLE;
+
+=== META ===
+F:PROJECT_NAME:pr_control;
+F:PRIMARY_PLATFORM:github;
+F:PURPOSE:control_pull_request_scope_before_approval;
+
+=== PR_REQUEST ===
+F:REQUEST:add_small_greeting_option_to_python_cli_example;
+F:ALLOW:modify_mapped_cli_file_only;
+F:BLOCK:add_external_dependencies;
+F:BLOCK:change_documentation;
+F:BLOCK:create_configuration_files;
+F:BLOCK:modify_unmapped_files;
+
+=== BUILD_GRAPH ===
+
+[TASK_01]
+F:ACTION:inspect_changed_files;
+F:OUTPUT:pr-review-report.md;
+
+[TASK_02]
+F:ACTION:compare_changed_files_against_output_map;
+F:DEPENDENCY:TASK_01;
+F:OUTPUT:pr-review-report.md;
+
+[TASK_03]
+F:ACTION:check_for_dependency_changes;
+F:DEPENDENCY:TASK_01;
+F:OUTPUT:pr-review-report.md;
+
+[TASK_04]
+F:ACTION:check_for_documentation_or_configuration_changes;
+F:DEPENDENCY:TASK_01;
+F:OUTPUT:pr-review-report.md;
+
+[TASK_05]
+F:ACTION:produce_pull_request_review_decision;
+F:DEPENDENCY:TASK_02;
+F:DEPENDENCY:TASK_03;
+F:DEPENDENCY:TASK_04;
+F:OUTPUT:pr-review-report.md;
+
+=== OUTPUT_MAP ===
+
+[FILE_01]
+F:PATH:examples/python-app-build-control/generated/hello_cli.py;
+F:MODE:modify_existing_file_only;
+
+[FILE_02]
+F:PATH:examples/pr-control/pr-review-report.md;
+F:MODE:create_report_only;
+
+=== CONSTRAINTS ===
+F:RULE:do_not_modify_files_outside_output_map;
+F:RULE:do_not_add_external_dependencies;
+F:RULE:do_not_modify_documentation_files;
+F:RULE:do_not_create_configuration_files;
+F:RULE:do_not_modify_repository_metadata;
+F:RULE:do_not_change_ci_or_workflow_files;
+F:RULE:halt_on_constraint_conflict;
+
+=== SIGNAL_ORANGE ===
+F:TRIGGER:unmapped_file_changed;
+F:TRIGGER:dependency_file_changed;
+F:TRIGGER:documentation_file_changed;
+F:TRIGGER:configuration_file_created_or_changed;
+F:TRIGGER:workflow_or_ci_file_changed;
+F:TRIGGER:repository_metadata_changed;
+F:TRIGGER:scope_expansion_detected;
+F:ACTION:request_changes_or_human_review;
+
+=== REVIEW_DECISION ===
+F:PASS_CONDITION:only_mapped_files_changed;
+F:PASS_CONDITION:no_dependency_changes;
+F:PASS_CONDITION:no_documentation_changes;
+F:PASS_CONDITION:no_configuration_changes;
+F:FAIL_CONDITION:any_signal_orange_triggered;
+
+=== END_JFP ===
