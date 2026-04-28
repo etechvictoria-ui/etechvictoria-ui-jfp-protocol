@@ -60,6 +60,38 @@ python tools/validator.py specs/minimal-build-spec.jfp
 python tools/jfp_cli.py inspect specs/minimal-build-spec.jfp
 ```
 
+## Try the first example
+
+Run the minimal Python app example:
+
+```bash
+python tools/jfp_cli.py inspect examples/minimal-python-app/minimal-python-app.jfp
+python tools/jfp_cli.py validate examples/minimal-python-app/minimal-python-app.jfp
+python tools/jfp_cli.py parse examples/minimal-python-app/minimal-python-app.jfp
+```
+
+Expected inspect output:
+
+```json
+{
+  "valid": true,
+  "issue_count": 0,
+  "sections": [
+    "JFP_DOCUMENT",
+    "META",
+    "BUILD_GRAPH",
+    "OUTPUT_MAP",
+    "CONSTRAINTS",
+    "SIGNAL_ORANGE",
+    "END_JFP"
+  ],
+  "task_count": 3,
+  "fact_count": 24
+}
+```
+
+See: [`examples/minimal-python-app/`](examples/minimal-python-app/)
+
 ## Tools
 
 | Tool | What it does | How to run |
@@ -69,6 +101,13 @@ python tools/jfp_cli.py inspect specs/minimal-build-spec.jfp
 | `tools/jfp_cli.py` | CLI entrypoint for parse, validate, and inspect | `python tools/jfp_cli.py inspect specs/minimal-build-spec.jfp` |
 
 Full reference: [`docs/tools.md`](docs/tools.md)
+
+## Templates and examples
+
+| Path | Purpose |
+|---|---|
+| [`templates/build-spec-template.jfp`](templates/build-spec-template.jfp) | Reusable starter template for controlled build specifications |
+| [`examples/minimal-python-app/`](examples/minimal-python-app/) | Runnable validation example showing a controlled minimal Python app build spec |
 
 ## Real systems and case studies
 
