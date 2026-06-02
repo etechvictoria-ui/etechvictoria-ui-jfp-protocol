@@ -5,7 +5,7 @@ import tempfile
 from pathlib import Path
 
 import pytest
-from tools.jfp_cli import command_parse, command_validate, command_inspect, read_spec, build_parser
+from tools.jfp_cli import command_parse, command_validate, command_inspect, read_spec, build_parser, main
 import argparse
 
 
@@ -91,14 +91,6 @@ class TestCommandParse:
             finally:
                 Path(f.name).unlink()
 
-    def test_command_parse_missing_file(self, capsys):
-        """Test parse command with missing file returns error code."""
-        args = argparse.Namespace(spec='/nonexistent/spec.jfp')
-        result = command_parse(args)
-        assert result == 2
-        captured = capsys.readouterr()
-        assert "ERROR" in captured.err
-
 
 class TestCommandValidate:
     """Test suite for command_validate function."""
@@ -142,14 +134,6 @@ class TestCommandValidate:
                 assert result == 1
             finally:
                 Path(f.name).unlink()
-
-    def test_command_validate_missing_file(self, capsys):
-        """Test validate command with missing file returns error code."""
-        args = argparse.Namespace(spec='/nonexistent/spec.jfp')
-        result = command_validate(args)
-        assert result == 2
-        captured = capsys.readouterr()
-        assert "ERROR" in captured.err
 
 
 class TestCommandInspect:
@@ -229,10 +213,89 @@ class TestCommandInspect:
             finally:
                 Path(f.name).unlink()
 
-    def test_command_inspect_missing_file(self, capsys):
-        """Test inspect command with missing file returns error code."""
-        args = argparse.Namespace(spec='/nonexistent/spec.jfp')
-        result = command_inspect(args)
+
+class TestMainErrorHandling:
+    """Test suite for main error handling."""
+
+    def test_main_with_missing_file(self, capsys):
+        """Test main function handles missing file gracefully."""
+        result = main(['parse', '/nonexistent/spec.jfp'])
         assert result == 2
         captured = capsys.readouterr()
         assert "ERROR" in captured.err
+
+    def test_main_with_directory_instead_of_file(self, capsys):
+        """Test main function handles directory instead of file."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            result = main(['parse', tmpdir])
+            assert result == 2
+            captured = capsys.readouterr()
+            assert "ERROR" in captured.err
+
+    def test_main_parse_command(self, capsys):
+        """Test main function with parse command."""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.jfp', delete=False) as f:
+            f.write("=== JFP_DOCUMENT ===\n")
+            f.write("F: VERSION: 1.0.0;\n")
+            f.write("=== END_JFP ===\n")
+            f.flush()
+            
+            try:
+                result = main(['parse', f.name])
+                assert result == 0
+                captured = capsys.readouterr()
+                output = json.loads(captured.out)
+                assert "sections" in output
+            finally:
+                Path(f.name).unlink()
+
+    def test_main_validate_command(self, capsys):
+        """Test main function with validate command."""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.jfp', delete=False) as f:
+            f.write("=== JFP_DOCUMENT ===\n")
+            f.write("F: VERSION: 1.0.0;\n")
+            f.write("F: TYPE: BUILD;\n")
+            f.write("=== META ===\n")
+            f.write("=== BUILD_GRAPH ===\n")
+            f.write("[TASK_001]\n")
+            f.write("F: ACTION: test;\n")
+            f.write("F: OUTPUT: result;\n")
+            f.write("=== CONSTRAINTS ===\n")
+            f.write("F: RULE: no changes;\n")
+            f.write("=== END_JFP ===\n")
+            f.flush()
+            
+            try:
+                result = main(['validate', f.name])
+                assert result == 0
+                captured = capsys.readouterr()
+                output = json.loads(captured.out)
+                assert "valid" in output
+            finally:
+                Path(f.name).unlink()
+
+    def test_main_inspect_command(self, capsys):
+        """Test main function with inspect command."""
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.jfp', delete=False) as f:
+            f.write("=== JFP_DOCUMENT ===\n")
+            f.write("F: VERSION: 1.0.0;\n")
+            f.write("F: TYPE: BUILD;\n")
+            f.write("=== META ===\n")
+            f.write("=== BUILD_GRAPH ===\n")
+            f.write("[TASK_001]\n")
+            f.write("F: ACTION: test;\n")
+            f.write("F: OUTPUT: result;\n")
+            f.write("=== CONSTRAINTS ===\n")
+            f.write("F: RULE: no changes;\n")
+            f.write("=== END_JFP ===\n")
+            f.flush()
+            
+            try:
+                result = main(['inspect', f.name])
+                assert result == 0
+                captured = capsys.readouterr()
+                output = json.loads(captured.out)
+                assert "spec" in output
+                assert "valid" in output
+            finally:
+                Path(f.name).unlink()
