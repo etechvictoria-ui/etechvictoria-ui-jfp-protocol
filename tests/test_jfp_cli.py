@@ -91,11 +91,13 @@ class TestCommandParse:
             finally:
                 Path(f.name).unlink()
 
-    def test_command_parse_missing_file(self):
-        """Test parse command with missing file."""
+    def test_command_parse_missing_file(self, capsys):
+        """Test parse command with missing file returns error code."""
         args = argparse.Namespace(spec='/nonexistent/spec.jfp')
         result = command_parse(args)
         assert result == 2
+        captured = capsys.readouterr()
+        assert "ERROR" in captured.err
 
 
 class TestCommandValidate:
@@ -127,7 +129,7 @@ class TestCommandValidate:
             finally:
                 Path(f.name).unlink()
 
-    def test_command_validate_invalid_spec(self):
+    def test_command_validate_invalid_spec(self, capsys):
         """Test validate command with invalid spec."""
         with tempfile.NamedTemporaryFile(mode='w', suffix='.jfp', delete=False) as f:
             f.write("")
@@ -140,6 +142,14 @@ class TestCommandValidate:
                 assert result == 1
             finally:
                 Path(f.name).unlink()
+
+    def test_command_validate_missing_file(self, capsys):
+        """Test validate command with missing file returns error code."""
+        args = argparse.Namespace(spec='/nonexistent/spec.jfp')
+        result = command_validate(args)
+        assert result == 2
+        captured = capsys.readouterr()
+        assert "ERROR" in captured.err
 
 
 class TestCommandInspect:
@@ -205,7 +215,7 @@ class TestCommandInspect:
             finally:
                 Path(f.name).unlink()
 
-    def test_command_inspect_invalid_spec(self):
+    def test_command_inspect_invalid_spec(self, capsys):
         """Test inspect command with invalid spec."""
         with tempfile.NamedTemporaryFile(mode='w', suffix='.jfp', delete=False) as f:
             f.write("")
@@ -218,3 +228,11 @@ class TestCommandInspect:
                 assert result == 1
             finally:
                 Path(f.name).unlink()
+
+    def test_command_inspect_missing_file(self, capsys):
+        """Test inspect command with missing file returns error code."""
+        args = argparse.Namespace(spec='/nonexistent/spec.jfp')
+        result = command_inspect(args)
+        assert result == 2
+        captured = capsys.readouterr()
+        assert "ERROR" in captured.err
